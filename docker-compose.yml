@@ -47,5 +47,8 @@ services:
     depends_on:
       - backend
 
+volumes:
+  data:
+
 # Run this file with 'docker-compose build' in same directory to build the whole application
 # Then 'docker-compose up'
