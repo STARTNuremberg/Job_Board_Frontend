@@ -4,11 +4,12 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/api
 
-COPY package.json .
-COPY package-lock.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["sh", "-c", "npm run <Backend_Command>"]
+EXPOSE 3080
+
+CMD ["npm", "start"]

@@ -4,11 +4,12 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/client
 
-COPY package.json .
-COPY package-lock.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["sh", "-c", "npm run <Frontend_Command>"]
+EXPOSE 3000
+
+CMD ["npm", "start"]

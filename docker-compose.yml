@@ -4,25 +4,25 @@ version: "3.8"
 services:
   mongodb:
     image: "mongo"
-    
+
     # TODO: Do we need restart-functionality?
-    
+
     # port for mongodb
     ports:
       - "27017:27017"
-    
+
     # TODO: Do we need networks-functionality?
-    
+
     # mongodb depends on volume to keep the data alive
     volumes:
       - data:/data/db
       # Not sure if line 18 (one above) works, needs to be tested
-    
+
     # environment variables
     environment:
       MONGO_INITDB_ROOT_USERNAME: "<TODO>"
       MONGO_INITDB_ROOT_PASSWORD: "<TODO>"
-  
+
   backend:
     container_name: jobboard_backend
     # TODO: Do we need restart-functionality?
@@ -31,7 +31,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - 3000:3000 # Depends on what port is specified in backend
+      - 3080:3080 # Depends on what port is specified in backend
     depends_on:
       - mongodb
 
@@ -43,9 +43,10 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - 8080:8081 # Depends on what port is specified in frontend
+      - 3000:3000 # Depends on what port is specified in frontend
     depends_on:
       - backend
+    stdin_open: true
 
 volumes:
   data:
