@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const app = express()
 
 
-mongoose.connect("mongodb://localhost:27017/jobs", {
+mongoose.connect("mongodb://mongodb:27017/jobs", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -13,6 +13,5 @@ mongoose.connect("mongodb://localhost:27017/jobs", {
     .catch((error) => {
         console.error("Error connecting to MongoDB:", error);
     });
-
 
 app.listen(3080)

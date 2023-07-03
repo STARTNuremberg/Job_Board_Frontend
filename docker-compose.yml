@@ -28,25 +28,24 @@ services:
     # TODO: Do we need restart-functionality?
     image: jobboard-backend:1.0.0
     build: 
-      context: ./api
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - 3080:3080 # Depends on what port is specified in backend
     depends_on:
       - mongodb
+    volumes:
+      - ./backend:/usr/src/api # Mount the backend code directory
+      - /usr/src/backend/node_modules/
 
   frontend:
-    container_name: jobboard_frontend
-    # TODO: Do we need restart-functionality?
-    image: jobboard-frontend:1.0.0
-    build: 
-      context: ./client
-      dockerfile: Dockerfile
+    build:
+      context: frontend
     ports:
-      - 3000:3000 # Depends on what port is specified in frontend
-    depends_on:
-      - backend
-    stdin_open: true
+      - "3000:3000"  # Depends on what port is specified in frontend1
+    volumes:
+      - ./frontend:/usr/src/frontend  # Mount the frontend1 code directory
+      - /usr/src/frontend/node_modules/
 
 volumes:
   data:
