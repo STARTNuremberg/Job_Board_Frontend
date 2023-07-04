@@ -2,26 +2,26 @@
 version: "3.8"
 
 services:
-  mongodb:
-    image: "mongo"
+  db:
+    image: mongo
+    restart: unless-stopped
 
-    # TODO: Do we need restart-functionality?
-
-    # port for mongodb
+    # port for mongodb only for testing
     ports:
-      - "27017:27017"
+      - "27018:27017"
 
     # TODO: Do we need networks-functionality?
 
     # mongodb depends on volume to keep the data alive
     volumes:
       - data:/data/db
-      # Not sure if line 18 (one above) works, needs to be tested
 
     # environment variables
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "<TODO>"
-      MONGO_INITDB_ROOT_PASSWORD: "<TODO>"
+    # environment:
+      # MONGO_INITDB_DATABASE: "admin"
+      # MONGO_INITDB_ROOT_USERNAME: "admin"
+      # MONGO_INITDB_ROOT_PASSWORD: "start"
+      # ME_CONFIG_MONGODB_ENABLE_ADMIN: true
 
   backend:
     container_name: jobboard_backend
@@ -33,9 +33,14 @@ services:
     ports:
       - 3080:3080 # Depends on what port is specified in backend
     depends_on:
-      - mongodb
+      - db
+    environment:
+      MONGO_USERNAME: "admin"
+      MONGO_PASSWORD: "start"
+      MONGO_HOST: "mongodb"
+      MONGO_PORT: "27018"
     volumes:
-      - ./backend:/usr/src/api # Mount the backend code directory
+      - ./backend:/usr/src/backend # Mount the backend code directory
       - /usr/src/backend/node_modules/
 
   frontend:
@@ -52,3 +57,5 @@ volumes:
 
 # Run this file with 'docker-compose build' in same directory to build the whole application
 # Then 'docker-compose up'
+
+
