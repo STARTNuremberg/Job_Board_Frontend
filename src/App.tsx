@@ -15,7 +15,7 @@ const App = () => {
         </Route>
 
         {/* private routes */}
-        <Route element={<RootLayout />}></Route>
+        <Route element={<Home />}></Route>
       </Routes>
     </main>
   );
