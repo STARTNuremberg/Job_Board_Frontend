@@ -1,7 +1,7 @@
 import React from "react";
 
 const AuthLayout = () => {
-  return <div></div>;
+  return <div>authlayout</div>;
 };
 
 export default AuthLayout;
