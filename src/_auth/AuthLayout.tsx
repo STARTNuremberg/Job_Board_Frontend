@@ -8,10 +8,10 @@ const AuthLayout = () => {
       <Navigate to="./" />
     ): (
       <>
-        <section>
+        <section className="xl:block h-screen w-1/2">
           <Outlet />
         </section>
-        <img src="AuthLayout_Pic.png" className="hidden xl:block h-screen w-1/2"/>
+        <img src="PLACEHOLDER_Auth.jpg" className="hidden xl:block h-screen w-1/2 right-0 rounded-sm"/>
       </>
     )}
   </>;
