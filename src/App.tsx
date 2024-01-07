@@ -4,7 +4,10 @@ import AuthLayout from "./_auth/AuthLayout";
 import SignInForm from "./_auth/forms/SigninForm";
 import Home from "./_root/pages/Home";
 import SignUpForm from "./_auth/forms/SignupForm";
-import './globals.css'
+import './globals.css';
+import { Toaster } from "@/components/ui/toaster"
+
+
 
 const App = () => {
   return (
@@ -23,7 +26,9 @@ const App = () => {
         </Route>
 
        </Routes>
+       <Toaster/>
     </main>
+    
   );
 };
 
