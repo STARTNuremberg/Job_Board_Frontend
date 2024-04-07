@@ -11,7 +11,7 @@ const AuthLayout = () => {
         <section className="xl:block h-screen w-1/2">
           <Outlet />
         </section>
-        <img src="PLACEHOLDER_Auth.jpg" className="hidden xl:block h-screen w-1/2 right-0 rounded-sm"/>
+        <img src="assets/images/PLACEHOLDER_Auth.jpg" className="hidden xl:block h-screen w-1/2 right-0 rounded-sm"/>
       </>
     )}
   </>;
