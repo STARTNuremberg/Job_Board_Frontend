@@ -29,7 +29,7 @@ const SignUpForm = () => {
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <img
-          src="/assets/icons/START_nuremberg_white.svg"
+          src="/assets/icons/START_nuremberg_blue.svg"
           alt="logo"
           className="max-w-xs"
         />
@@ -98,7 +98,7 @@ const SignUpForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary gap-2">
+          <Button type="submit" className="shad-button_primary gap-2 bg-[#021C73] hover:bg-[#122975]" >
             Submit
           </Button>
           <p className="text-small-regular text-light-2 text-center">

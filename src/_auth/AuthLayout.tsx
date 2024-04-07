@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 
+
 const AuthLayout = () => {
   const isAuthenticated = false;
 
@@ -8,10 +9,15 @@ const AuthLayout = () => {
       <Navigate to="./" />
     ): (
       <>
-        <section className="xl:block h-screen w-1/2">
+        <section className="flex flex-1 justify-center items-center flex-col
+        py-10">
           <Outlet />
         </section>
-        <img src="assets/images/PLACEHOLDER_Auth.jpg" className="hidden xl:block h-screen w-1/2 right-0 rounded-sm"/>
+
+        <img 
+        src="/assets/images/PLACEHOLDER_Auth.jpg"
+        
+        className="hidden xl:block h-screen w-1/2  object-cover bg-no-repeat"/>
       </>
     )}
   </>;
