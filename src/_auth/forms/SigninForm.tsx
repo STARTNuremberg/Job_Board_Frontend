@@ -12,12 +12,13 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import axios from 'axios';
 
 
 
 
 const formSchema = z.object({
-  email: z.string().min(2).max(50),
+  username: z.string().min(2).max(50),
   password: z.string().min(2).max(50),
 })
 
@@ -26,13 +27,21 @@ const SignInForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+
+    axios.post(`http://localhost:8000/users/token/`, {values})
+    .then(res => {
+      console.log(res);
+    })
+    .catch( err => {
+      console.log(err);
+    })
   }
 
 
@@ -57,12 +66,12 @@ const SignInForm = () => {
         >
           <FormField
             control={form.control}
-            name="email"
+            name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input type="username" className="shad-input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
