@@ -10,18 +10,31 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 
 
 
+
+const formSchema = z.object({
+  email: z.string().min(2).max(50),
+  password: z.string().min(2).max(50),
+})
 
 const SignInForm = () => {
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+  }
+
 
   return (
     <Form {...form}>
@@ -39,7 +52,7 @@ const SignInForm = () => {
         </p>
 
         <form
-        //onsubmit
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full mt-4"
         >
           <FormField
@@ -51,7 +64,6 @@ const SignInForm = () => {
                 <FormControl>
                   <Input type="email" className="shad-input" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -65,7 +77,6 @@ const SignInForm = () => {
                 <FormControl>
                   <Input type="password" className="shad-input" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
