@@ -35,7 +35,10 @@ const SignInForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
 
-    axios.post(`http://localhost:8000/users/token/`, {values})
+    axios.post(`http://localhost:8000/users/token/`, {
+      username: values.username,
+      password: values.password,
+    })
     .then(res => {
       console.log(res);
     })
