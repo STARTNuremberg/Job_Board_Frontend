@@ -10,20 +10,43 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import axios from 'axios';
 
-
-
+const formSchema = z.object({
+  email: z.string().min(2).max(50),
+  username: z.string().min(2).max(50),
+  password: z.string().min(2).max(50),
+})
 
 const SignUpForm = () => {
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      email:"",
       username: "",
-      email: "",
       password: "",
     },
   });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+
+    axios.post(`http://localhost:8000/users/register/`, {
+      email: values.email,
+      username: values.username,
+      password: values.password,
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
 
   return (
     <Form {...form}>
@@ -41,22 +64,9 @@ const SignUpForm = () => {
         </p>
 
         <form
-        //onsubmit
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full mt-4"
         >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="username"
