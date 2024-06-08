@@ -5,10 +5,19 @@ import SignInForm from "./_auth/forms/SigninForm";
 import Home from "./_root/pages/Home";
 import SignUpForm from "./_auth/forms/SignupForm";
 import './globals.css'
+import AuthProvider from 'react-auth-kit';
+import createStore from 'react-auth-kit/createStore';
 
 const App = () => {
+  const store = createStore({
+    authName:'_auth',
+    authType:'cookie',
+    cookieDomain: window.location.hostname,
+    cookieSecure: window.location.protocol === 'http:',
+  });
   return (
     <main className="flex h-screen">
+      <AuthProvider store={store}>
        <Routes>
 
         {/*Public Routes*/}
@@ -23,6 +32,7 @@ const App = () => {
         </Route>
 
        </Routes>
+       </AuthProvider>
     </main>
   );
 };

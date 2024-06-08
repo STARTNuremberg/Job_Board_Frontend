@@ -9,10 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
@@ -21,7 +22,7 @@ const formSchema = z.object({
 })
 
 const SignUpForm = () => {
-
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +42,7 @@ const SignUpForm = () => {
     })
     .then(res => {
       console.log(res);
+      navigate("/Login");
     })
     .catch( err => {
       console.log(err);

@@ -9,10 +9,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import axios from 'axios';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -23,7 +26,8 @@ const formSchema = z.object({
 })
 
 const SignInForm = () => {
-
+  const navigate = useNavigate();
+  const signIn = useSignIn();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +45,21 @@ const SignInForm = () => {
     })
     .then(res => {
       console.log(res);
+      if(res.status == 200){
+        if(signIn({
+          auth: {
+              token: res.data.access,
+              type: 'Bearer'
+          },
+          //refresh: res.data.refresh
+      })){ 
+          console.log("User signed in");
+           
+      }else {
+          //Throw error
+      }
+      navigate("/Home");
+      }
     })
     .catch( err => {
       console.log(err);
