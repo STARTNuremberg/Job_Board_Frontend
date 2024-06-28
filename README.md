@@ -1,27 +1,55 @@
-# React + TypeScript + Vite
+# START Nuremberg's Job Board - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the frontend repository for START Nuremberg's Job Board. This project is designed to provide an intuitive and user-friendly interface for job seekers and employers within the START Nuremberg community.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Introduction](#introduction)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Backend Repository](#backend-repository)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Introduction
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+START Nuremberg's Job Board is a platform aimed at connecting job seekers with potential employers. The frontend of this application is built using React, TypeScript, and TailwindCSS to ensure a modern and responsive user experience.
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **TailwindCSS**: A utility-first CSS framework for rapidly building custom designs.
+
+## Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/download/) (v14.x or later)
+- [npm](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/getting-started/install)
+
+### Installation
+
+1. Clone the repository:
+ ```sh
+   git clone git@github.com:STARTNuremberg/Job_Board_Frontend.git
+```
+2. Install the dependencies:
+ ```sh
+   npm install OR yarn install
+```
+3. run the application:
+ ```sh
+   npm run dev OR yarn start
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To enjoy full functionality we recommend running the backend docker container.
+
+### Backend Repository
+The backend for this project can be found [here](https://github.com/STARTNuremberg/Job_Board_Backend_Django).
