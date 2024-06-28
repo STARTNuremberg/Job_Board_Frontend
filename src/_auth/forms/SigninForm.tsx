@@ -15,7 +15,7 @@ import { z } from "zod"
 import axios from 'axios';
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useNavigate } from "react-router-dom";
-
+import { useToast } from "@/components/ui/use-toast";
 
 
 
@@ -26,6 +26,8 @@ const formSchema = z.object({
 })
 
 const SignInForm = () => {
+
+  const { toast } = useToast()
   const navigate = useNavigate();
   const signIn = useSignIn();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,15 +56,23 @@ const SignInForm = () => {
           //refresh: res.data.refresh
       })){ 
           console.log("User signed in");
+          toast(
+            {title: "User Signed In!", 
+            description: "You have been successfully signed in.",}
+          );
+          navigate("/");
            
-      }else {
-          //Throw error
       }
-      navigate("/Home");
       }
     })
     .catch( err => {
       console.log(err);
+      form.reset();
+      toast(
+        { variant: "destructive",
+          title: "Oops! Something went wrong!", 
+        description: err.response.data.detail+'',}
+      );
     })
   }
 

@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import { Toaster } from "@/components/ui/toaster"
 
 
 const AuthLayout = () => {
@@ -13,6 +14,7 @@ const AuthLayout = () => {
         <section className="flex flex-1 justify-center items-center flex-col
         py-10">
           <Outlet />
+          <Toaster />
         </section>
 
         <img 

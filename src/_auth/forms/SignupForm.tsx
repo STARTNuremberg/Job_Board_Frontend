@@ -14,6 +14,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+
+
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
@@ -22,6 +25,7 @@ const formSchema = z.object({
 })
 
 const SignUpForm = () => {
+  const { toast } = useToast()
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,10 +46,27 @@ const SignUpForm = () => {
     })
     .then(res => {
       console.log(res);
+      toast(
+        {title: "Account Created!", 
+        description: "Use your credentials to login.",}
+      );
       navigate("/sign-in");
     })
     .catch( err => {
       console.log(err);
+      if(err.response.status == 400 && err.response.data.error == undefined ){
+        toast(
+          { variant: "destructive",
+            title: "Error!", 
+          description: "user profile with this username already exists.",}
+        );
+      } else {
+        toast(
+          { variant: "destructive",
+            title: "Error!", 
+          description: err.response.data.error+'',}
+        );
+      }
     })
   }
 
