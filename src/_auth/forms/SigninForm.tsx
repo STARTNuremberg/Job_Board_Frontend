@@ -127,7 +127,7 @@ const SignInForm = () => {
             Don't have an account?
             <Link
               to="/sign-up"
-              className="text-primary-500 text-small-semibold ml-1"
+              className="text-blue-500 text-small-semibold ml-1"
             >
               Sign up
             </Link>
