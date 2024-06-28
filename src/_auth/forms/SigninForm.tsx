@@ -9,19 +9,63 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import axios from 'axios';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import { useNavigate } from "react-router-dom";
 
 
 
+
+
+const formSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(2).max(50),
+})
 
 const SignInForm = () => {
-
-  const form = useForm({
+  const navigate = useNavigate();
+  const signIn = useSignIn();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+
+    axios.post(`http://localhost:8000/users/token/`, {
+      username: values.username,
+      password: values.password,
+    })
+    .then(res => {
+      console.log(res);
+      if(res.status == 200){
+        if(signIn({
+          auth: {
+              token: res.data.access,
+              type: 'Bearer'
+          },
+          //refresh: res.data.refresh
+      })){ 
+          console.log("User signed in");
+           
+      }else {
+          //Throw error
+      }
+      navigate("/Home");
+      }
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
 
   return (
     <Form {...form}>
@@ -39,19 +83,18 @@ const SignInForm = () => {
         </p>
 
         <form
-        //onsubmit
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full mt-4"
         >
           <FormField
             control={form.control}
-            name="email"
+            name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input type="username" className="shad-input" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -65,7 +108,6 @@ const SignInForm = () => {
                 <FormControl>
                   <Input type="password" className="shad-input" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -85,7 +127,7 @@ const SignInForm = () => {
             Don't have an account?
             <Link
               to="/sign-up"
-              className="text-primary-500 text-small-semibold ml-1"
+              className="text-blue-500 text-small-semibold ml-1"
             >
               Sign up
             </Link>

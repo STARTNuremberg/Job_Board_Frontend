@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useSignOut from 'react-auth-kit/hooks/useSignOut';
 
 const RootLayout = () => {
+  const signOut = useSignOut()
   return <div>
     <Link
       to="/sign-in"
@@ -15,6 +17,7 @@ const RootLayout = () => {
       Sign Up
     </Link>
 
+    <button onClick={() => signOut()}>Sign Out!</button>
 
 
   </div>;
