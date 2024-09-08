@@ -1,17 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar.tsx";
 
 const RootLayout = () => {
-
-  return <div>
-    
-    <Outlet />
-    <Toaster />
-
-
-  </div>;
+  return (
+    <div>
+      <Navbar />
+      <Outlet />
+      <Toaster />
+    </div>
+  );
 };
 
 export default RootLayout;
