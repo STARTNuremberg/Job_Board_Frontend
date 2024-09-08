@@ -10,71 +10,75 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import axios from 'axios';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-
-
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
   username: z.string().min(2).max(50),
   password: z.string().min(2).max(50),
-})
+});
 
 const SignUpForm = () => {
-  const { toast } = useToast()
+  const { toast } = useToast();
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email:"",
+      email: "",
       username: "",
       password: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
 
-    axios.post(`http://localhost:8000/users/register/`, {
-      email: values.email,
-      username: values.username,
-      password: values.password,
-    })
-    .then(res => {
-      console.log(res);
-      toast(
-        {title: "Account Created!", 
-        description: "Use your credentials to login.",}
-      );
-      navigate("/sign-in");
-    })
-    .catch( err => {
-      console.log(err);
-      if(err.response.status == 400 && err.response.data.error == undefined ){
-        toast(
-          { variant: "destructive",
-            title: "Error!", 
-          description: "user profile with this username already exists.",}
-        );
-      } else {
-        toast(
-          { variant: "destructive",
-            title: "Error!", 
-          description: err.response.data.error+'',}
-        );
-      }
-    })
+    axios
+      .post(`http://localhost:8000/users/register/`, {
+        email: values.email,
+        username: values.username,
+        password: values.password,
+      })
+      .then((res) => {
+        console.log(res);
+        toast({
+          title: "Account Created!",
+          description: "Use your credentials to login.",
+        });
+        navigate("/Sign-in");
+      })
+      .catch((err) => {
+        console.log(err);
+        if (
+          err.response.status == 400 &&
+          err.response.data.error == undefined
+        ) {
+          toast({
+            variant: "destructive",
+            title: "Error!",
+            description: "user profile with this username already exists.",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Error!",
+            description: err.response.data.error + "",
+          });
+        }
+      });
   }
-
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <img
+          onClick={() => {
+            navigate("/");
+          }}
           src="/assets/icons/START_nuremberg_blue.svg"
           alt="logo"
           className="max-w-xs"
@@ -131,13 +135,16 @@ const SignUpForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary gap-2 bg-[#021C73] hover:bg-[#122975]" >
+          <Button
+            type="submit"
+            className="shad-button_primary gap-2 bg-[#021C73] hover:bg-[#122975]"
+          >
             Submit
           </Button>
           <p className="text-small-regular text-light-2 text-center">
             Already have an account?
             <Link
-              to="/sign-in"
+              to="/Sign-in"
               className="text-blue-500 text-small-semibold ml-1"
             >
               Log in
