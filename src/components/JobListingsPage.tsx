@@ -40,7 +40,6 @@ const JobListingsPage = () => {
   console.log(jobPostings);
   return (
     <>
-      <div className="w-full h-24 border-2">Placeholder Navbar</div>
       <div className="w-full h-24 border-2 flex justify-center items-center gap-6">
         <div className="w-1/3 ">
           <input
