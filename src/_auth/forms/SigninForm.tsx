@@ -9,25 +9,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { Link, Navigate} from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import axios from 'axios';
-import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import { Link, Navigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import axios from "axios";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-
-
-
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   password: z.string().min(2).max(50),
-})
+});
 
 const SignInForm = () => {
-
-  const { toast } = useToast()
+  const { toast } = useToast();
   const navigate = useNavigate();
   const signIn = useSignIn();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -39,48 +35,52 @@ const SignInForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
 
-    axios.post(`http://localhost:8000/users/token/`, {
-      username: values.username,
-      password: values.password,
-    })
-    .then(res => {
-      console.log(res);
-      if(res.status == 200){
-        if(signIn({
-          auth: {
-              token: res.data.access,
-              type: 'Bearer'
-          },
-          //refresh: res.data.refresh
-      })){ 
-          console.log("User signed in");
-          toast(
-            {title: "User Signed In!", 
-            description: "You have been successfully signed in.",}
-          );
-          navigate("/");
-           
-      }
-      }
-    })
-    .catch( err => {
-      console.log(err);
-      form.reset();
-      toast(
-        { variant: "destructive",
-          title: "Oops! Something went wrong!", 
-        description: err.response.data.detail+'',}
-      );
-    })
+    axios
+      .post(`http://localhost:8000/users/token/`, {
+        username: values.username,
+        password: values.password,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          if (
+            signIn({
+              auth: {
+                token: res.data.access,
+                type: "Bearer",
+              },
+              //refresh: res.data.refresh
+            })
+          ) {
+            console.log("User signed in");
+            toast({
+              title: "User Signed In!",
+              description: "You have been successfully signed in.",
+            });
+            navigate("/");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        form.reset();
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong!",
+          description: err.response.data.detail + "",
+        });
+      });
   }
-
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <img
+          onClick={() => {
+            navigate("/");
+          }}
           src="/assets/icons/START_nuremberg_blue.svg"
           alt="logo"
           className="max-w-xs"
@@ -122,21 +122,21 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary gap-2 bg-[#021C73] hover:bg-[#122975]" >
+          <Button
+            type="submit"
+            className="shad-button_primary gap-2 bg-[#021C73] hover:bg-[#122975]"
+          >
             Login
           </Button>
           <p className="text-small-regular text-light-2 text-center">
-            <Link
-              to=""
-              className="text-primary-500 text-small-semibold ml-1"
-            >
+            <Link to="" className="text-primary-500 text-small-semibold ml-1">
               Forgot your password?
             </Link>
           </p>
           <p className="text-small-regular text-light-2 text-center">
             Don't have an account?
             <Link
-              to="/sign-up"
+              to="/Sign-up"
               className="text-blue-500 text-small-semibold ml-1"
             >
               Sign up
