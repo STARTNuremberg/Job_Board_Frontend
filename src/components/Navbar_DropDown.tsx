@@ -12,10 +12,10 @@ const Navbar_DropDown = () => {
     <div className="w-52 text-lg absolute right-10 border-2 border-navy-blue mt-px rounded shadow-xl">
       {isAuthenticated ? (
         <div>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/user/">
             My Profile
           </Link>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/Settings">
             Settings
           </Link>
           <div
