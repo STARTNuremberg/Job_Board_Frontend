@@ -9,7 +9,7 @@ const Navbar_DropDown = () => {
   const signOut = useSignOut();
   const { toast } = useToast();
   return (
-    <div className="w-52 text-lg absolute right-10 border-2 border-navy-blue mt-px rounded shadow-xl bg-white">
+    <div className="w-52 text-lg absolute right-10 border-2 border-navy-blue mt-px rounded shadow-xl bg-white z-10">
       {isAuthenticated ? (
         <div>
           <Link className="block w-full p-2 hover:bg-slate-200" to="/MyProfile">
