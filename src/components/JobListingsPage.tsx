@@ -4,10 +4,10 @@ const url = "http://localhost:8000/api/jobs/job-posting/";
 
 // Define the JobTypeEnum
 enum JobTypeEnum {
-  FullTime = 1,
-  PartTime = 2,
-  Contract = 3,
-  Temporary = 5,
+  "Full-time" = 1,
+  "Part-time" = 2,
+  "Contract" = 3,
+  "Temporary" = 5,
 }
 
 // Define the JobPosting interface
@@ -25,22 +25,26 @@ interface JobPosting {
 }
 const JobListingsPage = () => {
   const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);
-  const [currentJob, setCurrentJob] = useState(0);
+  const [activeJob, setActiveJob] = useState(jobPostings[0]);
+
+  function handleActiveJob(job: any) {
+    setActiveJob(job);
+  }
+
+  async function fetchJobPostings() {
+    const response = await fetch(url);
+    const data = await response.json();
+    setJobPostings(data);
+  }
+
   useEffect(() => {
-    fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setJobPostings(data);
-      });
+    fetchJobPostings();
   }, []);
 
-  console.log(jobPostings);
   return (
-    <>
-      <div className="w-full h-24 border-2 flex justify-center items-center gap-6">
+    <div className="w-full h-full">
+      {/* Searchbar */}
+      <div className="w-full h-24 flex justify-center items-center gap-6">
         <div className="w-1/3 ">
           <input
             className="border-2 w-1/2 p-2 "
@@ -60,32 +64,66 @@ const JobListingsPage = () => {
           Search
         </button>
       </div>
-      <div className="flex m-auto w-full h-content items-center justify-center">
-        <ul className="w-1/3  ">
+
+      {/* Job Listings */}
+      <div className="flex mx-auto w-full justify-center">
+        <ul className="w-1/3 h-[700px] overflow-auto no-scrollbar">
           {jobPostings.map((job) => (
             <li
               key={job.id}
-              className="w-full h-1/2 border-2  p-8 border-r-10 list-none "
+              className="border-2 p-4 border-r-10 list-none rounded-2xl m-2 "
             >
-              <a className="text-2xl font-bold hover:underline ">
+              <a
+                onClick={() => handleActiveJob(job)}
+                className="text-2xl font-bold hover:underline "
+              >
                 {job.title} (m/w/d)
               </a>
 
               <p className="">Company {job.company}</p>
-              <p>{job.description}</p>
-              <p>{job.location}</p>
-              <p className="bg-slate-300 w-20 h-5 opacity-50 ">
-                {JobTypeEnum[job.job_type]}
+              <p>
+                {job.description.length > 150
+                  ? job.description.substring(0, 150) + "..."
+                  : job.description}
               </p>
+              <p>{job.location}</p>
+              <div className="bg-slate-200 text-black text-sm w-20 p-2 text-center rounded-lg shadow-sm opacity-80">
+                {JobTypeEnum[job.job_type]}
+              </div>
             </li>
           ))}
         </ul>
-        <div className="w-1/3 h-1/2 border-2 m-5">
-          <h1>Job Title</h1>
-          <p>Job Description</p>
-        </div>
+
+        {/* Job Details */}
+        {activeJob && (
+          <div className="w-2/5 p-2 pr-10 h-[700px] overflow-x-clip overflow-y-auto">
+            <div className="w-full border-2 border-navy-blue mx-5 sticky">
+              <img
+                className="w-full h-52 object-cover"
+                src="assets/images/PLACEHOLDER_Auth.jpg"
+                alt=""
+              />
+              <div className="bg-white -mt-8 absolute z-10 w-16 h-16 ml-4 justify-center rounded shadow-lg p-2">
+                <img
+                  className="w-full h-full object-contain"
+                  src="assets\icons\Datev_logo.svg"
+                  alt=""
+                />
+              </div>
+              <div className="p-4 pt-10 bg-slate-200">
+                <h1 className="text-3xl font-bold my-4">{activeJob.title}</h1>
+                <p>Company {activeJob.company}</p>
+                <p className="my-5">{activeJob.description}</p>
+
+                <button className="bg-blue-500 text-white px-6 py-2 my-4 rounded shadow-md">
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
