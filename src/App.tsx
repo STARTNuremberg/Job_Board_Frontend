@@ -32,7 +32,7 @@ const App = () => {
           <Route element={<RootLayout />}>
             <Route index element={<Home />} />
             <Route
-              path={"/user/*"}
+              path={"/MyProfile"}
               element={
                 <RequireAuth fallbackPath={"/sign-in"}>
                   <Profile />
