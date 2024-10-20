@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar.tsx";
 
 const RootLayout = () => {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-full">
       <Navbar />
       <Outlet />
       <Toaster />
