@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
@@ -35,15 +35,12 @@ const SignInForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-
     axios
       .post(`http://localhost:8000/users/token/`, {
         username: values.username,
         password: values.password,
       })
       .then((res) => {
-        console.log(res);
         if (res.status == 200) {
           if (
             signIn({
@@ -52,6 +49,9 @@ const SignInForm = () => {
                 type: "Bearer",
               },
               //refresh: res.data.refresh
+              userState: {
+                token: res.data.access,
+              },
             })
           ) {
             console.log("User signed in");
@@ -136,7 +136,7 @@ const SignInForm = () => {
           <p className="text-small-regular text-light-2 text-center">
             Don't have an account?
             <Link
-              to="/Sign-up"
+              to="/sign-up"
               className="text-blue-500 text-small-semibold ml-1"
             >
               Sign up

@@ -9,13 +9,13 @@ const Navbar_DropDown = () => {
   const signOut = useSignOut();
   const { toast } = useToast();
   return (
-    <div className="w-52 text-lg absolute right-10 border-2 border-navy-blue mt-px rounded shadow-xl">
+    <div className="w-52 text-lg absolute right-10 border-2 border-navy-blue mt-px rounded shadow-xl bg-white">
       {isAuthenticated ? (
         <div>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/MyProfile">
             My Profile
           </Link>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/settings">
             Settings
           </Link>
           <div
@@ -33,10 +33,10 @@ const Navbar_DropDown = () => {
         </div>
       ) : (
         <div>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/Sign-in">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/sign-in">
             Sign In
           </Link>
-          <Link className="block w-full p-2 hover:bg-slate-200" to="/Sign-up">
+          <Link className="block w-full p-2 hover:bg-slate-200" to="/sign-up">
             Sign Up
           </Link>
         </div>
