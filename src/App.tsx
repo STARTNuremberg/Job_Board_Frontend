@@ -8,6 +8,7 @@ import Settings from "./_root/pages/Settings";
 import SignUpForm from "./_auth/forms/SignupForm";
 import "./globals.css";
 import AuthProvider from "react-auth-kit";
+import RequireAuth from "@auth-kit/react-router/RequireAuth";
 import createStore from "react-auth-kit/createStore";
 
 const App = () => {
@@ -23,16 +24,32 @@ const App = () => {
         <Routes>
           {/*Public Routes*/}
           <Route element={<AuthLayout />}>
-            <Route path="/Sign-in" element={<SignInForm />} />
-            <Route path="/Sign-up" element={<SignUpForm />} />
+            <Route path="/sign-in" element={<SignInForm />} />
+            <Route path="/sign-up" element={<SignUpForm />} />
           </Route>
 
           {/*Private Routes*/}
           <Route element={<RootLayout />}>
             <Route index element={<Home />} />
-            <Route path="/User/*" element={<Profile />} />
-            <Route path="/Settings" element={<Settings />} />
+            <Route
+              path={"/user/*"}
+              element={
+                <RequireAuth fallbackPath={"/sign-in"}>
+                  <Profile />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={"/settings"}
+              element={
+                <RequireAuth fallbackPath={"/sign-in"}>
+                  <Settings />
+                </RequireAuth>
+              }
+            />
           </Route>
+
+          <Route path="/*" element={<h1>404 Page Not Found</h1>} />
         </Routes>
       </AuthProvider>
     </main>

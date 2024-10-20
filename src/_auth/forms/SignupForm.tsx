@@ -49,7 +49,7 @@ const SignUpForm = () => {
           title: "Account Created!",
           description: "Use your credentials to login.",
         });
-        navigate("/Sign-in");
+        navigate("/sign-in");
       })
       .catch((err) => {
         console.log(err);
@@ -144,7 +144,7 @@ const SignUpForm = () => {
           <p className="text-small-regular text-light-2 text-center">
             Already have an account?
             <Link
-              to="/Sign-in"
+              to="/sign-in"
               className="text-blue-500 text-small-semibold ml-1"
             >
               Log in

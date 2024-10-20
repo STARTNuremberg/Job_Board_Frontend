@@ -50,7 +50,6 @@ const SignInForm = () => {
               },
               //refresh: res.data.refresh
               userState: {
-                username: values.username,
                 token: res.data.access,
               },
             })
@@ -137,7 +136,7 @@ const SignInForm = () => {
           <p className="text-small-regular text-light-2 text-center">
             Don't have an account?
             <Link
-              to="/Sign-up"
+              to="/sign-up"
               className="text-blue-500 text-small-semibold ml-1"
             >
               Sign up
