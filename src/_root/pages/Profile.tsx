@@ -1,28 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import axios from "axios";
 import { Divide } from "lucide-react";
 
+interface AuthUser {
+  token: string;
+}
+
 const Profile = () => {
   const isAuthenticated = useIsAuthenticated();
-  const auth = useAuthUser();
+  const auth = useAuthUser<AuthUser>();
   const [user, setUser] = useState({ username: "", email: "", avatar: "" });
 
-  axios
-    .get(`http://localhost:8000/users/user/`, {
-      headers: {
-        accept: "*/*",
-        Authorization: `Bearer ${auth.token}`,
-      },
-    })
-    .then((res) => {
-      setUser({
-        username: res.data.username,
-        email: res.data.email,
-        avatar: res.data.avatar,
-      });
-    });
+  useEffect(() => {
+    if (isAuthenticated && auth) {
+      axios
+        .get(`http://localhost:8000/users/user/`, {
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${auth.token}`, // Use optional chaining to avoid accessing null
+          },
+        })
+        .then((res) => {
+          setUser({
+            username: res.data.username,
+            email: res.data.email,
+            avatar: res.data.avatar,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [isAuthenticated, auth]);
 
   return (
     <div className="h-screen w-screen">

@@ -32,12 +32,10 @@ const JobListingsPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setJobPostings(data);
       });
   }, []);
 
-  console.log(jobPostings);
   return (
     <>
       <div className="w-full h-24 border-2 flex justify-center items-center gap-6">
