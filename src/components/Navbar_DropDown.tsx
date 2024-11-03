@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { Link } from "react-router-dom";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
