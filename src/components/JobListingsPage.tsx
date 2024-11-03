@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-const url = "http://localhost:8000/api/jobs/job-posting/";
+const url =
+  "https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/api/jobs/job-posting/";
 
 // Define the JobTypeEnum
 enum JobTypeEnum {

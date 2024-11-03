@@ -16,12 +16,15 @@ const Profile = () => {
   useEffect(() => {
     if (isAuthenticated && auth) {
       axios
-        .get(`http://localhost:8000/users/user/`, {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${auth.token}`, // Use optional chaining to avoid accessing null
-          },
-        })
+        .get(
+          `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/user/`,
+          {
+            headers: {
+              accept: "*/*",
+              Authorization: `Bearer ${auth.token}`, // Use optional chaining to avoid accessing null
+            },
+          }
+        )
         .then((res) => {
           setUser({
             username: res.data.username,

@@ -38,11 +38,14 @@ const SignUpForm = () => {
     console.log(values);
 
     axios
-      .post(`http://localhost:8000/users/register/`, {
-        email: values.email,
-        username: values.username,
-        password: values.password,
-      })
+      .post(
+        `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/register/`,
+        {
+          email: values.email,
+          username: values.username,
+          password: values.password,
+        }
+      )
       .then((res) => {
         console.log(res);
         toast({

@@ -36,10 +36,13 @@ const SignInForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios
-      .post(`http://localhost:8000/users/token/`, {
-        username: values.username,
-        password: values.password,
-      })
+      .post(
+        `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/token/`,
+        {
+          username: values.username,
+          password: values.password,
+        }
+      )
       .then((res) => {
         if (res.status == 200) {
           if (
