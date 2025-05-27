@@ -14,7 +14,7 @@ const apiUrl = {
     logout: `${BASE_URL}/users/logout/`,
     passwordReset: `${BASE_URL}/users/password-reset/`,
     token: `${BASE_URL}/users/token/`,
-    tokenRefresh: `${BASE_URL}/users/token/refresh`,
+    tokenRefresh: `${BASE_URL}/users/token/refresh/`,
     register: `${BASE_URL}/users/register/`,
     login: `${BASE_URL}/users/token/`,
     refresh: `${BASE_URL}/users/token/refresh/`,
