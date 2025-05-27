@@ -16,6 +16,7 @@ import axios from "axios";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import apiUrl from "@/constants/urls";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -37,7 +38,7 @@ const SignInForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios
       .post(
-        `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/token/`,
+        apiUrl.users.token,
         {
           username: values.username,
           password: values.password,
