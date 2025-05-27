@@ -1,7 +1,8 @@
+import apiUrl from "@/constants/urls";
 import { useState, useEffect } from "react";
 
 const url =
-  "https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/api/jobs/job-posting/";
+  apiUrl.api.jobs.postings;
 
 // Define the JobTypeEnum
 enum JobTypeEnum {

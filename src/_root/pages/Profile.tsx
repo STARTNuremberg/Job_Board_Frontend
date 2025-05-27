@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import axios from "axios";
+import apiUrl from "@/constants/urls";
 
 interface AuthUser {
   token: string;
@@ -16,7 +17,7 @@ const Profile = () => {
     if (isAuthenticated && auth) {
       axios
         .get(
-          `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/user/`,
+          apiUrl.users.detail,
           {
             headers: {
               accept: "*/*",

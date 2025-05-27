@@ -15,6 +15,7 @@ import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import apiUrl from "@/constants/urls";
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
@@ -39,7 +40,7 @@ const SignUpForm = () => {
 
     axios
       .post(
-        `https://jobboard-backend-bjggc0fmcghuetea.westeurope-01.azurewebsites.net/users/register/`,
+        apiUrl.users.register,
         {
           email: values.email,
           username: values.username,
